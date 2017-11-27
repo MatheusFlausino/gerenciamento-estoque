@@ -5,13 +5,14 @@
  */
 package Classes;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author matheusflausino
  */
-public class Venda {
+public class Venda implements Serializable{
     private String idVenda;
     private int idCliente;
     private String tipoPagVenda;
@@ -85,7 +86,7 @@ public class Venda {
     }
 
     public void setIdCliente(int idCliente) throws Exception {
-        if (idCliente > 0) {
+        if (idCliente >= 0) {
             this.idCliente = idCliente;
         } else {
             throw new Exception("ID Invalido");

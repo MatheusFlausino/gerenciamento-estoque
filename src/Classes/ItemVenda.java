@@ -5,11 +5,13 @@
  */
 package Classes;
 
+import java.io.Serializable;
+
 /**
  *
  * @author matheusflausino
  */
-public class ItemVenda {
+public class ItemVenda implements Serializable{
     private int IdProduto;
     private String IdVenda;
     private double PrecoProduto;
@@ -21,7 +23,7 @@ public class ItemVenda {
     }
 
     public void setIdProduto(int IdProduto) throws Exception {
-        if (IdProduto > 0) {
+        if (IdProduto >= 0) {
             this.IdProduto = IdProduto;
         } else {
             throw new Exception("ID Invalido");

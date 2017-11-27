@@ -5,13 +5,13 @@
  */
 package view;
 
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import DAOPapel.DAOProduto;
 import Classes.Produto;
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+//import DAOPapel.DAOProduto;
+//import DAOBinario.DAOProduto;
+import DAOmysql.DAOProduto;
 
 /**
  *
@@ -245,8 +245,8 @@ public class formProduto extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         try {
             // TODO add your handling code here:
-            dbProduto.gravaResultado();
-        } catch (IOException ex) {
+            //dbProduto.gravaResultado();
+        } catch (Exception ex) {
             Logger.getLogger(formProduto.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formWindowClosing

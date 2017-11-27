@@ -5,11 +5,17 @@
  */
 package view;
 
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import DAOPapel.DAOEstoque;
-import DAOPapel.DAOFornecedor;
-import DAOPapel.DAOProduto;
+
+//import DAOBinario.DAOEstoque;
+//import DAOBinario.DAOFornecedor;
+//import DAOBinario.DAOProduto;
+//import DAOPapel.DAOEstoque;
+//import DAOPapel.DAOFornecedor;
+//import DAOPapel.DAOProduto;
+import DAOmysql.DAOEstoque;
+import DAOmysql.DAOFornecedor;
+import DAOmysql.DAOProduto;
 import Classes.Estoque;
 import Classes.Fornecedor;
 import Classes.Produto;
@@ -284,8 +290,8 @@ public class formEstoque extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         try {
             // TODO add your handling code here:
-            this.dbEstoque.gravaResultado();
-        } catch (IOException ex) {
+            //this.dbEstoque.gravaResultado();
+        } catch (Exception ex) {
             Logger.getLogger(formEstoque.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formWindowClosing

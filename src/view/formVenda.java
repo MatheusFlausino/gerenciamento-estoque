@@ -11,20 +11,24 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.text.DecimalFormat;   
-import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Classes.Cliente;
-import DAOPapel.DAOCliente;
-import DAOPapel.DAOItemVenda;
 import Classes.Produto;
-import DAOPapel.DAOProduto;
-import DAOPapel.DAOVenda;
 import Classes.ItemVenda;
 import Classes.Venda;
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+//import DAOPapel.DAOCliente;
+//import DAOPapel.DAOItemVenda;
+//import DAOPapel.DAOProduto;
+//import DAOPapel.DAOVenda;
+
+import DAOBinario.DAOCliente;
+import DAOBinario.DAOItemVenda;
+import DAOBinario.DAOProduto;
+import DAOBinario.DAOVenda;
+
 
 /**
  *
@@ -384,7 +388,7 @@ public class formVenda extends javax.swing.JFrame {
         Venda novaVenda = new Venda();
 
         try {
-            novaVenda.setIdVenda(codigoVenda);
+            novaVenda.setIdVenda(this.codigoVenda);
             novaVenda.setIdCliente(Integer.parseInt(codigoCliente.getText()));
             novaVenda.setDataVenda(new java.sql.Date(new Date().getTime()));
             novaVenda.setDescontoVenda(Double.parseDouble(descontoVenda.getText().isEmpty()?"0.00":descontoVenda.getText()));
@@ -405,6 +409,7 @@ public class formVenda extends javax.swing.JFrame {
             });
             imprimeMsg("Compra finalizada com Sucesso.");
             dbItem.gravaResultado();
+            this.dbvenda.gravaResultado();
             this.dispose();
         } catch (Exception ex) {
             imprimeMsg("Erro ao inserir Venda no Banco");
@@ -425,6 +430,7 @@ public class formVenda extends javax.swing.JFrame {
             setTotalVenda();
             setTotalPagar();
         }catch (Exception ex) {
+            System.out.println("Erro ao inserir Produto:"+ex);
             imprimeMsg("Erro ao inserir Produto");
         }finally{
             resetProduto();
@@ -458,12 +464,7 @@ public class formVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_tipoPagamentoActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        try {
-            // TODO add your handling code here:
-            this.dbvenda.gravaResultado();
-        } catch (IOException ex) {
-            Logger.getLogger(formVenda.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
     }//GEN-LAST:event_formWindowClosing
 
     /**
@@ -644,6 +645,6 @@ public class formVenda extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private double precoTotal = 0.00;
     private String codigoVenda;
-    ArrayList<ItemVenda> listaProduto = new ArrayList();
+    ArrayList<ItemVenda> listaProduto = new ArrayList(){};
     DAOVenda dbvenda = new DAOVenda();
 }

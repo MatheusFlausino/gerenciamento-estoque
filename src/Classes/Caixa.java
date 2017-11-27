@@ -5,13 +5,14 @@
  */
 package Classes;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author pedro canassa
  */
-public class Caixa {
+public class Caixa implements Serializable{
 
     private double valorCaixa;
     private Date dataCaixa;

@@ -94,7 +94,7 @@ public class DAOFornecedor {
         bReader.close();
     }
     
-    public void gravaResultado()throws IOException{
+    public void gravaResultado()throws Exception{
         FileWriter escritor = Dados.gravarBanco(ARQUIVO);
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         try(BufferedWriter escritorbuff = new BufferedWriter(escritor)){
@@ -120,7 +120,7 @@ public class DAOFornecedor {
             }
             escritorbuff.flush();
             escritorbuff.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

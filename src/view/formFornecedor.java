@@ -5,16 +5,15 @@
  */
 package view;
 
-import java.sql.Date;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import Classes.Fornecedor;
-import DAOPapel.DAOFornecedor;
 import java.io.IOException;
+//import DAOPapel.DAOFornecedor;
+//import DAOBinario.DAOFornecedor;
+import DAOmysql.DAOFornecedor;
 
 /**
  *
@@ -375,8 +374,8 @@ public final class formFornecedor extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         try {
             // TODO add your handling code here:
-            dbFornecedor.gravaResultado();
-        } catch (IOException ex) {
+            //dbFornecedor.gravaResultado();
+        } catch (Exception ex) {
             Logger.getLogger(formFornecedor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formWindowClosing

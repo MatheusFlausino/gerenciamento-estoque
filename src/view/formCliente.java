@@ -5,11 +5,13 @@
  */
 package view;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import Classes.Cliente;
-import DAOPapel.DAOCliente;
+//import DAOPapel.DAOCliente;
+//import DAOBinario.DAOCliente;
+import DAOmysql.DAOCliente;
+
 
 /**
  *
@@ -360,9 +362,9 @@ public final class formCliente extends javax.swing.JFrame {
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
         // TODO add your handling code here:
         try {
-            this.dbCliente.gravaResultado();
+            //this.dbCliente.gravaResultado();
             this.setVisible(false);
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             this.imprimeMsg("Erro ao salvar banco de dados");
         }
     }//GEN-LAST:event_exitActionPerformed
@@ -393,8 +395,8 @@ public final class formCliente extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
         try {
-            this.dbCliente.gravaResultado();
-        } catch (IOException ex) {
+            //this.dbCliente.gravaResultado();
+        } catch (Exception ex) {
             this.imprimeMsg("Erro ao salvar banco de dados");
         }
     }//GEN-LAST:event_formWindowClosing
