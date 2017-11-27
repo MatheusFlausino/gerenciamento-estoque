@@ -21,7 +21,7 @@ public class DAOItemVenda {
     
     private Connection con = null;
     private static final String NOME = "root",
-            SENHA = "";
+            SENHA = "123456";
 
     public void apagar(String id) throws Exception {
         try {
