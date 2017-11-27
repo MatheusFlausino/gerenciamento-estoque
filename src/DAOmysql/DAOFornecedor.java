@@ -16,7 +16,7 @@ public class DAOFornecedor {
 
     private Connection con = null;
     private static final String NOME = "root",
-            SENHA = "123456";
+            SENHA = "";
 
     public void remover(Fornecedor f) throws Exception {
         int id = f.getIdFornecedor();

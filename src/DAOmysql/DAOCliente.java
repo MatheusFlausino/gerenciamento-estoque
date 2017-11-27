@@ -16,7 +16,7 @@ public class DAOCliente {
 
     private Connection con = null;
     private static final String NOME = "root",
-            SENHA = "123456";
+            SENHA = "";
 
     public void remover(Cliente cliente) throws Exception {
         int id = cliente.getIdCliente();

@@ -15,7 +15,7 @@ public class DAOProduto {
 
     private Connection con = null;
     private static final String NOME = "root",
-            SENHA = "123456";
+            SENHA = "";
 
     public void remover(Produto p) throws Exception {
         int id = p.getIdProduto();
