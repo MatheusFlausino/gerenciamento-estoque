@@ -24,10 +24,15 @@ import java.util.logging.Logger;
 //import DAOPapel.DAOProduto;
 //import DAOPapel.DAOVenda;
 
-import DAOBinario.DAOCliente;
-import DAOBinario.DAOItemVenda;
-import DAOBinario.DAOProduto;
-import DAOBinario.DAOVenda;
+//import DAOBinario.DAOCliente;
+//import DAOBinario.DAOItemVenda;
+//import DAOBinario.DAOProduto;
+//import DAOBinario.DAOVenda;
+
+import DAOmysql.DAOCliente;
+import DAOmysql.DAOItemVenda;
+import DAOmysql.DAOProduto;
+import DAOmysql.DAOVenda;
 
 
 /**
@@ -180,6 +185,11 @@ public class formVenda extends javax.swing.JFrame {
         });
 
         jLabel9.setText("Código Cliente");
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+        });
 
         jLabel6.setText("Nome Cliente");
 
@@ -337,7 +347,7 @@ public class formVenda extends javax.swing.JFrame {
                             .addComponent(jButton2))
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(finalizarVenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(finalizarVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cancelarVender, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
@@ -408,8 +418,8 @@ public class formVenda extends javax.swing.JFrame {
                 }
             });
             imprimeMsg("Compra finalizada com Sucesso.");
-            dbItem.gravaResultado();
-            this.dbvenda.gravaResultado();
+            //dbItem.gravaResultado();
+            //this.dbvenda.gravaResultado();
             this.dispose();
         } catch (Exception ex) {
             imprimeMsg("Erro ao inserir Venda no Banco");
@@ -466,6 +476,10 @@ public class formVenda extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
 
     }//GEN-LAST:event_formWindowClosing
+
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel9MouseClicked
 
     /**
      * @param args the command line arguments

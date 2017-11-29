@@ -21,7 +21,7 @@ public class DAOItemVenda {
     
     private Connection con = null;
     private static final String NOME = "root",
-            SENHA = "";
+            SENHA = "123456";
 
     public void apagar(String id) throws Exception {
         try {
@@ -86,7 +86,7 @@ public class DAOItemVenda {
         return resultados;
     }
 
-    public boolean insere(ItemVenda novoItemVenda) throws Exception {
+    public boolean inserir(ItemVenda novoItemVenda) throws Exception {
         boolean retorno = false;
         String sql = "INSERT INTO itemvenda(idProduto,precoProduto,nomeProduto,idVenda,qtdProduto)" + 
                 "VALUES(?,?,?,?,?)";

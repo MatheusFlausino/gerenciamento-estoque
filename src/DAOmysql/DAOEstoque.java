@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class DAOEstoque {
      private Connection con = null;
     private static final String NOME = "root",
-            SENHA = "";
+            SENHA = "123456";
 
     public void remover(Estoque e) throws Exception {
         int id = e.getIdEstoque();

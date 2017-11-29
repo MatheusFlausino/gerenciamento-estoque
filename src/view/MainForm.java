@@ -5,6 +5,19 @@
  */
 package view;
 
+import DAOmysql.Dados;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JOptionPane;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -42,6 +55,10 @@ public class MainForm extends javax.swing.JFrame {
         gerenciarFornecedor = new javax.swing.JMenuItem();
         gerenciarProduto = new javax.swing.JMenuItem();
         estoque = new javax.swing.JMenu();
+        relatorio = new javax.swing.JMenu();
+        relatorioItem = new javax.swing.JMenuItem();
+        relatorioCliente = new javax.swing.JMenuItem();
+        relatorioVendas = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gerenciamento de Farmácia");
@@ -138,6 +155,53 @@ public class MainForm extends javax.swing.JFrame {
         });
         jMenuBar1.add(estoque);
 
+        relatorio.setText("Relatório");
+        relatorio.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                relatorioMenuSelected(evt);
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+        });
+        relatorio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                relatorioMouseClicked(evt);
+            }
+        });
+        relatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                relatorioActionPerformed(evt);
+            }
+        });
+
+        relatorioItem.setText("Itens no Estoque");
+        relatorioItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                relatorioItemActionPerformed(evt);
+            }
+        });
+        relatorio.add(relatorioItem);
+
+        relatorioCliente.setText("Vendas do Cliente");
+        relatorioCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                relatorioClienteActionPerformed(evt);
+            }
+        });
+        relatorio.add(relatorioCliente);
+
+        relatorioVendas.setText("Todas Vendas");
+        relatorioVendas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                relatorioVendasActionPerformed(evt);
+            }
+        });
+        relatorio.add(relatorioVendas);
+
+        jMenuBar1.add(relatorio);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -147,7 +211,7 @@ public class MainForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
                 .addComponent(jButtonSair)
                 .addContainerGap())
         );
@@ -269,6 +333,97 @@ public class MainForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_estoqueMenuSelected
 
+    private void relatorioMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_relatorioMenuSelected
+        // TODO add your handling code here:
+    }//GEN-LAST:event_relatorioMenuSelected
+
+    private void relatorioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_relatorioMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_relatorioMouseClicked
+
+    private void relatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_relatorioActionPerformed
+
+    private void relatorioItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorioItemActionPerformed
+        // TODO add your handling code here:
+        Map params = new HashMap();
+        String s = null;
+        
+        while (true) {
+            s = JOptionPane.showInputDialog("Quantidade minima de item no estoque");
+            if (!isNumeric(s)) {
+                JOptionPane.showMessageDialog(null,"Você não respondeu a pergunta.");
+            }else{
+                break;
+            }
+        }        
+        params.put("qtdItem", Integer.parseInt(s));
+        
+        visualizarRelatorio(params, rItem);
+        
+    }//GEN-LAST:event_relatorioItemActionPerformed
+
+    private void relatorioClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorioClienteActionPerformed
+        // TODO add your handling code here:
+        Map params = new HashMap();
+        String s = null;
+        
+        while (true) {
+            s = JOptionPane.showInputDialog("Digite o ID do cliente");
+            if (!isNumeric(s)) {
+                JOptionPane.showMessageDialog(null,"Você não respondeu a pergunta.");
+            }else{
+                break;
+            }
+        }        
+        params.put("idCliente", Integer.parseInt(s));
+        
+        visualizarRelatorio(params, rCliente);
+    }//GEN-LAST:event_relatorioClienteActionPerformed
+
+    private void relatorioVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorioVendasActionPerformed
+        // TODO add your handling code here:
+        visualizarRelatorio(null, rVenda);
+    }//GEN-LAST:event_relatorioVendasActionPerformed
+
+    private boolean isNumeric(String s) {  
+        return s != null && s.matches("[-+]?\\d*\\.?\\d+");  
+    } 
+    
+    private void visualizarRelatorio(Map params, String relatorio){
+    //  Foi criada uma thread caso o banco esteja muito lotado a thread não deixa o programa travado
+   
+        new Thread() {
+            @Override
+            public void run() {
+                JasperPrint impressao;
+                Connection conn = null;
+                
+                try {
+                    conn = new Dados().conexao(NOME, SENHA);
+
+                    impressao = JasperFillManager.fillReport(
+                            relatorio, params, conn);
+                    
+                    JasperViewer.viewReport(impressao,false);
+                } catch (JRException ex) {
+                    System.err.println("Não foi possível exportar o relatório.\n\n");
+                    ex.printStackTrace();
+                } catch (Exception ex) {
+                    Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+                }finally{
+                    try {
+                        conn.close();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                
+            }
+	}.start();
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -317,5 +472,21 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem novoCliente;
     private javax.swing.JMenuItem novoFornecedor;
     private javax.swing.JMenuItem novoProduto;
+    private javax.swing.JMenu relatorio;
+    private javax.swing.JMenuItem relatorioCliente;
+    private javax.swing.JMenuItem relatorioItem;
+    private javax.swing.JMenuItem relatorioVendas;
     // End of variables declaration//GEN-END:variables
+    
+    private static final String NOME = "root";
+    
+    private static final String SENHA = "123456";
+    
+    private static final String rCliente = 
+            System.getProperty("user.dir")+"/src/relatorios/reportClienteVendas.jasper";
+    private static final String rVenda = 
+            System.getProperty("user.dir")+"/src/relatorios/reportVendas.jasper";
+    private static final String rItem = 
+            System.getProperty("user.dir")+"/src/relatorios/reportItens.jasper";
+
 }
